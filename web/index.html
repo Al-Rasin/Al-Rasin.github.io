@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Replaced by the value of `flutter build web --base-href`. -->
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al Rasin — Flutter Developer</title>
+  <meta name="description" content="Al Rasin is a Flutter developer in Dhaka, Bangladesh, building cross-platform mobile apps with Flutter, Dart and Firebase.">
+  <meta name="theme-color" content="#08090B">
+
+  <!-- Social share previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Al Rasin — Flutter Developer">
+  <meta property="og:description" content="Cross-platform mobile apps with Flutter, Dart and Firebase.">
+  <meta property="og:url" content="https://al-rasin.github.io/">
+  <meta property="og:image" content="https://al-rasin.github.io/assets/assets/images/avatar.jpg">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Open connections early: Flutter loads its renderer and Roboto from Google's CDN. -->
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Al Rasin">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Instant first paint: plain HTML shows while Flutter downloads. */
+    html, body { margin: 0; background: #08090B; }
+    #loader {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      justify-content: center; padding: 0 8vw; color: #EDEDEF;
+      font-weight: 600; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      transition: opacity .3s ease;
+    }
+    #loader p { margin: 0 0 18px; font-size: 14px; color: #7C83FF; }
+    #loader h1 { margin: 0; font-size: clamp(44px, 8vw, 80px); line-height: 1.05; letter-spacing: -3px; }
+    #loader h1 span { color: #8A8F98; }
+    #loader .bar { margin-top: 40px; width: 160px; height: 2px; background: #1E2025; overflow: hidden; }
+    #loader .bar::after {
+      content: ''; display: block; width: 40%; height: 100%; background: #7C83FF;
+      animation: slide 1s ease-in-out infinite;
+    }
+    @keyframes slide { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+    #loader.done { opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <!-- Real text in HTML so search engines and slow connections still see content. -->
+  <main id="loader">
+    <p>Al Rasin · Flutter Developer</p>
+    <h1>Crafting smooth<br><span>Flutter apps.</span></h1>
+    <div class="bar"></div>
+    <noscript>
+      <p style="margin-top:32px;color:#8A8F98">
+        This site needs JavaScript. Find my work at
+        <a href="https://github.com/Al-Rasin" style="color:#7C83FF">github.com/Al-Rasin</a>
+        or email <a href="mailto:alrasin500@gmail.com" style="color:#7C83FF">alrasin500@gmail.com</a>.
+      </p>
+    </noscript>
+  </main>
+
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var loader = document.getElementById('loader');
+      loader.classList.add('done');
+      setTimeout(function () { loader.remove(); }, 400);
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
