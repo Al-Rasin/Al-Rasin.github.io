@@ -73,7 +73,7 @@ class PortfolioData {
       'Flutter developer in Dhaka. I turn ideas into smooth, '
       'cross-platform apps with Flutter, Dart and Firebase.';
 
-  static const skills = ['Flutter', 'Dart', 'Firebase', 'Google Maps'];
+  static const skills = ['Flutter', 'Dart', 'Firebase', 'Kotlin', 'Android'];
 
   static const liveApps = [
     LiveApp(
@@ -106,6 +106,33 @@ class PortfolioData {
 
   static const projects = [
     Project(
+      title: 'Jimi',
+      description:
+          'Offline voice assistant for a rooted Android phone. Wake word, '
+          'speech to text and small local models, all on the phone.',
+      tags: ['Kotlin', 'Android', 'llama.cpp'],
+      url: 'https://github.com/Al-Rasin/jimi',
+      icon: Icons.record_voice_over_rounded,
+    ),
+    Project(
+      title: 'Focus Guard',
+      description:
+          'Self-control tool for rooted Android and macOS. Adds friction '
+          'to Shorts and Reels and blocks adult content.',
+      tags: ['Android', 'macOS'],
+      url: 'https://github.com/Al-Rasin/focus-guard',
+      icon: Icons.shield_rounded,
+    ),
+    Project(
+      title: 'SEU Matrimony',
+      description:
+          'Team-built matrimony app with profiles, match filters, chat '
+          'and calls.',
+      tags: ['Flutter', 'Firebase', 'GetX'],
+      url: 'https://github.com/Al-Rasin/seu-matrimony',
+      icon: Icons.favorite_rounded,
+    ),
+    Project(
       title: 'Chat App',
       description:
           'Real-time chat app built with Flutter, using Firebase as the backend.',
@@ -123,14 +150,6 @@ class PortfolioData {
       icon: Icons.rocket_launch_rounded,
     ),
     Project(
-      title: 'Favorite Places',
-      description:
-          'Save favorite places with a photo and their location on Google Maps.',
-      tags: ['Flutter', 'Google Maps'],
-      url: 'https://github.com/Al-Rasin/favorite-places',
-      icon: Icons.place_rounded,
-    ),
-    Project(
       title: 'Gambit',
       description:
           'Game app with a list of online gaming websites plus several '
@@ -138,23 +157,6 @@ class PortfolioData {
       tags: ['Flutter', 'Dart'],
       url: 'https://github.com/Al-Rasin/gambit',
       icon: Icons.sports_esports_rounded,
-    ),
-    Project(
-      title: 'Expense Tracker',
-      description:
-          'Daily expense tracker, built in 8 planned phases with a real '
-          'git workflow.',
-      tags: ['Flutter'],
-      url: 'https://github.com/Al-Rasin/expense_tracker',
-      icon: Icons.account_balance_wallet_rounded,
-    ),
-    Project(
-      title: 'Shopping List',
-      description:
-          'Shopping list with categories, titles and quantities for every item.',
-      tags: ['Flutter'],
-      url: 'https://github.com/Al-Rasin/shopping-list',
-      icon: Icons.shopping_basket_rounded,
     ),
   ];
 }
