@@ -143,15 +143,6 @@ class PortfolioData {
       icon: Icons.favorite_rounded,
     ),
     Project(
-      title: 'Favorite Places',
-      description:
-          'Save places you like with a photo from the camera and a '
-          'location from GPS or the map.',
-      tags: ['Flutter', 'Google Maps'],
-      url: 'https://github.com/Al-Rasin/favorite-places',
-      icon: Icons.place_rounded,
-    ),
-    Project(
       title: 'Chat App',
       description:
           'Real-time chat app built with Flutter, using Firebase as the backend.',
