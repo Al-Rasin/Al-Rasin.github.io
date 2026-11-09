@@ -70,10 +70,19 @@ class PortfolioData {
   static const photo = 'assets/images/avatar.jpg';
 
   static const intro =
-      'Flutter developer in Dhaka. I turn ideas into smooth, '
-      'cross-platform apps with Flutter, Dart and Firebase.';
+      'Flutter developer in Dhaka. 2.5+ years building apps that are '
+      'live on the Play Store and App Store.';
 
-  static const skills = ['Flutter', 'Dart', 'Firebase', 'Kotlin', 'Android'];
+  static const skills = [
+    'Flutter',
+    'Dart',
+    'Riverpod',
+    'GetX',
+    'GoRouter',
+    'Hive',
+    'Firebase',
+    'Kotlin',
+  ];
 
   static const liveApps = [
     LiveApp(
@@ -95,6 +104,7 @@ class PortfolioData {
           'Book trusted home help and maids in Dhaka. Place and track '
           'orders right from your phone.',
       icon: Icons.cleaning_services_rounded,
+      appStoreUrl: 'https://apps.apple.com/us/app/hellotask/id1448530002',
       playStoreUrl:
           'https://play.google.com/store/apps/details?id=com.robotlogistics.callrobot',
     ),
@@ -131,6 +141,15 @@ class PortfolioData {
       tags: ['Flutter', 'Firebase', 'GetX'],
       url: 'https://github.com/Al-Rasin/seu-matrimony',
       icon: Icons.favorite_rounded,
+    ),
+    Project(
+      title: 'Favorite Places',
+      description:
+          'Save places you like with a photo from the camera and a '
+          'location from GPS or the map.',
+      tags: ['Flutter', 'Google Maps'],
+      url: 'https://github.com/Al-Rasin/favorite-places',
+      icon: Icons.place_rounded,
     ),
     Project(
       title: 'Chat App',
