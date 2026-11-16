@@ -104,7 +104,6 @@ class PortfolioData {
           'Book trusted home help and maids in Dhaka. Place and track '
           'orders right from your phone.',
       icon: Icons.cleaning_services_rounded,
-      appStoreUrl: 'https://apps.apple.com/us/app/hellotask/id1448530002',
       playStoreUrl:
           'https://play.google.com/store/apps/details?id=com.robotlogistics.callrobot',
     ),
