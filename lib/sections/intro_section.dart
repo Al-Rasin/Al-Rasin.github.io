@@ -147,21 +147,27 @@ class PhoneStrip extends StatelessWidget {
               child: child,
             );
           },
-          child: OverflowBox(
-            alignment: Alignment.topLeft,
-            maxWidth: double.infinity,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (final (i, img) in _images.indexed)
-                  Padding(
-                    padding: EdgeInsets.only(
-                      right: 20,
-                      top: i.isOdd ? 0 : phone * 0.08,
+          child: RepaintBoundary(
+            child: OverflowBox(
+              alignment: Alignment.topLeft,
+              maxWidth: double.infinity,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (final (i, img) in _images.indexed)
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: 20,
+                        top: i.isOdd ? 0 : phone * 0.08,
+                      ),
+                      child: PhoneFrame(
+                        image: img,
+                        width: phone,
+                        aspect: aspect,
+                      ),
                     ),
-                    child: PhoneFrame(image: img, width: phone, aspect: aspect),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -129,7 +129,7 @@ class PortfolioData {
           'start, and built the streaming audio player with background '
           'playback.',
       tech: 'Flutter, Riverpod, GoRouter, Hive, REST',
-      stats: ['150k+ users', '4.4★ App Store'],
+      stats: ['150k+ users', '4.4 on the App Store'],
       app: LiveApp(
         title: 'TubeOnAI',
         iconAsset: 'assets/images/apps/tubeonai-icon.jpg',

@@ -25,14 +25,6 @@ flutter:
     - assets/images/projects/
 
   fonts:
-    - family: Newsreader
-      fonts:
-        - asset: assets/fonts/Newsreader-400.ttf
-          weight: 400
-        - asset: assets/fonts/Newsreader-500.ttf
-          weight: 500
-        - asset: assets/fonts/Newsreader-600.ttf
-          weight: 600
     - family: Bricolage
       fonts:
         - asset: assets/fonts/Bricolage.ttf
