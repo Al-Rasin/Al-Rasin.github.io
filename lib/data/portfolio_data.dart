@@ -171,7 +171,7 @@ class PortfolioData {
           'Offline speech-to-text app running whisper.cpp on the device. '
           '99+ languages, with SRT, WebVTT, JSON and plain-text export.',
       tags: ['Flutter', 'whisper.cpp', 'Offline'],
-      url: 'https://github.com/Al-Rasin/transcribr',
+      url: 'https://github.com/Al-Rasin/transcribr-legal',
       icon: Icons.graphic_eq_rounded,
       screenshots: [
         'assets/images/projects/transcribr-home.jpg',
@@ -187,7 +187,7 @@ class PortfolioData {
           'serial, Bluetooth, Wi-Fi/ESP32 and IR remote. Guided auto-fix '
           'flows and a Bangla/English UI.',
       tags: ['Flutter', 'Android', 'UART'],
-      url: 'https://github.com/Al-Rasin/tv_uart_tool',
+      url: 'https://github.com/Al-Rasin/tvuarttool-releases',
       icon: Icons.developer_board_rounded,
       screenshots: [
         'assets/images/projects/tvuart-home.jpg',
