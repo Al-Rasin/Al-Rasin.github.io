@@ -10,6 +10,7 @@ class BlogSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Section(
+      index: '03',
       title: 'Writing',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

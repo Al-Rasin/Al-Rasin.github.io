@@ -35,34 +35,48 @@ class _ContactSectionState extends State<ContactSection> {
 
   @override
   Widget build(BuildContext context) {
+    final narrow = isNarrow(context);
     return Section(
+      index: PortfolioData.blogPosts.isEmpty ? '04' : '05',
       title: 'Contact',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "I'm open to remote Flutter and Android work. Email is the best "
-            'way to reach me, and I usually reply within a day.',
-            style: AppText.body,
+          Text(
+            'Got an app that needs building?',
+            style: AppText.lead.copyWith(fontSize: narrow ? 26 : 40),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 640),
+            child: Text(
+              "I'm open to remote Flutter and Android work. Email is the best "
+              'way to reach me, and I usually reply within a day.',
+              style: AppText.muted,
+            ),
+          ),
+          const SizedBox(height: 32),
           Wrap(
-            spacing: 14,
-            runSpacing: 6,
+            spacing: 18,
+            runSpacing: 10,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              const TextLink(
-                PortfolioData.email,
-                url: 'mailto:${PortfolioData.email}',
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: TextLink(
+                  PortfolioData.email,
+                  url: 'mailto:${PortfolioData.email}',
+                  style: AppText.lead.copyWith(fontSize: narrow ? 22 : 32),
+                ),
               ),
               TextLink(
-                _copied ? 'Copied' : 'copy',
+                _copied ? 'Copied' : 'Copy',
                 style: AppText.small,
                 onTap: _copy,
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 28),
           const LinkRow([
             TextLink('WhatsApp', url: PortfolioData.whatsapp),
             TextLink('LinkedIn', url: PortfolioData.linkedin),
@@ -79,10 +93,14 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(top: 80, bottom: 48),
-      child: Text(
-        'Built with Flutter, set in Newsreader. Last updated November 2026.',
+    return Container(
+      margin: const EdgeInsets.only(top: 120),
+      padding: const EdgeInsets.only(top: 24, bottom: 48),
+      decoration: const BoxDecoration(
+        border: Border(top: BorderSide(color: AppColors.line)),
+      ),
+      child: const Text(
+        'Built with Flutter, set in Bricolage Grotesque. Last updated November 2026.',
         style: AppText.code,
       ),
     );
