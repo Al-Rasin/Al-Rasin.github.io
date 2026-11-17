@@ -21,6 +21,7 @@ flutter:
 
   assets:
     - assets/images/avatar.jpg
+    - assets/images/projects/
 
   # Latin-only subsets (~180 KB total) keep the download small.
   fonts:
