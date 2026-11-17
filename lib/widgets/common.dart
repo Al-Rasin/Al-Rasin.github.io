@@ -195,12 +195,18 @@ class _AppButtonState extends State<AppButton> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                widget.label,
-                style: TextStyle(
-                  fontSize: widget.small ? 14 : 15,
-                  fontWeight: FontWeight.w500,
-                  color: fg,
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    widget.label,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: widget.small ? 14 : 15,
+                      fontWeight: FontWeight.w500,
+                      color: fg,
+                    ),
+                  ),
                 ),
               ),
               if (widget.icon != null) ...[
