@@ -78,7 +78,7 @@ class Experience {
 
 class PortfolioData {
   static const name = 'Al Rasin';
-  static const role = 'Flutter & Android Developer';
+  static const role = 'Mobile App Developer';
   static const location = 'Dhaka, Bangladesh';
   static const email = 'alrasin500@gmail.com';
 
@@ -90,7 +90,7 @@ class PortfolioData {
   static const photo = 'assets/images/avatar.jpg';
 
   static const intro =
-      'Flutter & Android developer in Dhaka. 2.5+ years building apps '
+      'Mobile app developer in Dhaka. 2.5+ years building apps '
       'live on the Play Store and App Store.';
 
   static const skills = [

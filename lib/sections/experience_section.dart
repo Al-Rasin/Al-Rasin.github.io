@@ -58,7 +58,7 @@ class _ExperienceRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final narrow = isNarrow(context);
-    final meta = [item.period, ?item.location].join('  ·  ');
+    final meta = item.location;
     const metaStyle = TextStyle(fontSize: 13, color: AppColors.subtle);
 
     final heading = Column(
@@ -86,18 +86,22 @@ class _ExperienceRow extends StatelessWidget {
         children: [
           if (narrow) ...[
             heading,
-            const SizedBox(height: 6),
-            Text(meta, style: metaStyle),
+            if (meta != null) ...[
+              const SizedBox(height: 6),
+              Text(meta, style: metaStyle),
+            ],
           ] else
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(child: heading),
-                const SizedBox(width: 16),
-                Padding(
-                  padding: const EdgeInsets.only(top: 3),
-                  child: Text(meta, style: metaStyle),
-                ),
+                if (meta != null) ...[
+                  const SizedBox(width: 16),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 3),
+                    child: Text(meta, style: metaStyle),
+                  ),
+                ],
               ],
             ),
           if (item.summary != null) ...[
