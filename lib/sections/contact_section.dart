@@ -1,77 +1,74 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../data/portfolio_data.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common.dart';
 
-class ContactSection extends StatelessWidget {
+class ContactSection extends StatefulWidget {
   const ContactSection({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final narrow = isNarrow(context);
+  State<ContactSection> createState() => _ContactSectionState();
+}
 
-    return ContentWidth(
-      child: Padding(
-        padding: EdgeInsets.only(bottom: narrow ? 48 : 80),
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(
-            horizontal: narrow ? 24 : 64,
-            vertical: narrow ? 56 : 88,
+class _ContactSectionState extends State<ContactSection> {
+  bool _copied = false;
+  Timer? _timer;
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _copy() async {
+    await Clipboard.setData(const ClipboardData(text: PortfolioData.email));
+    setState(() => _copied = true);
+    _timer?.cancel();
+    _timer = Timer(const Duration(seconds: 2), () {
+      if (mounted) setState(() => _copied = false);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Section(
+      title: 'Contact',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "I'm open to remote Flutter and Android work. Email is the best "
+            'way to reach me, and I usually reply within a day.',
+            style: AppText.body,
           ),
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: AppColors.border),
-            gradient: RadialGradient(
-              center: const Alignment(0, -1.4),
-              radius: 1.4,
-              colors: [
-                AppColors.accent.withValues(alpha: .18),
-                AppColors.surface,
-              ],
-            ),
-          ),
-          child: Column(
+          const SizedBox(height: 20),
+          Wrap(
+            spacing: 14,
+            runSpacing: 6,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              SectionHeading(
-                eyebrow: 'Contact',
-                title: "Let's build something\ntogether.",
-                subtitle:
-                    'Have an app idea or a role in mind? '
-                    'Email me or message me on WhatsApp.',
-                center: true,
+              const TextLink(
+                PortfolioData.email,
+                url: 'mailto:${PortfolioData.email}',
               ),
-              const SizedBox(height: 36),
-              Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 12,
-                runSpacing: 12,
-                children: [
-                  AppButton(
-                    label: 'Email me',
-                    icon: Icons.arrow_forward_rounded,
-                    onPressed: () => openUrl('mailto:${PortfolioData.email}'),
-                  ),
-                  AppButton(
-                    label: PortfolioData.email,
-                    primary: false,
-                    onPressed: () => openUrl('mailto:${PortfolioData.email}'),
-                  ),
-                  AppButton(
-                    label: 'WhatsApp',
-                    icon: Icons.chat_rounded,
-                    primary: false,
-                    onPressed: () => openUrl(PortfolioData.whatsapp),
-                  ),
-                ],
+              TextLink(
+                _copied ? 'Copied' : 'copy',
+                style: AppText.small,
+                onTap: _copy,
               ),
-              const SizedBox(height: 28),
-              const SocialLinks(alignment: WrapAlignment.center),
             ],
           ),
-        ),
+          const SizedBox(height: 14),
+          const LinkRow([
+            TextLink('WhatsApp', url: PortfolioData.whatsapp),
+            TextLink('LinkedIn', url: PortfolioData.linkedin),
+            TextLink('GitHub', url: PortfolioData.github),
+          ]),
+        ],
       ),
     );
   }
@@ -82,29 +79,11 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(top: BorderSide(color: AppColors.border)),
-      ),
-      child: ContentWidth(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 28),
-          child: Flex(
-            direction: isNarrow(context) ? Axis.vertical : Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            spacing: 8,
-            children: [
-              Text(
-                '© ${DateTime.now().year} ${PortfolioData.name}',
-                style: const TextStyle(fontSize: 13.5, color: AppColors.subtle),
-              ),
-              const Text(
-                'Built with Flutter',
-                style: TextStyle(fontSize: 13.5, color: AppColors.subtle),
-              ),
-            ],
-          ),
-        ),
+    return const Padding(
+      padding: EdgeInsets.only(top: 80, bottom: 48),
+      child: Text(
+        'Built with Flutter, set in Newsreader. Last updated November 2026.',
+        style: AppText.code,
       ),
     );
   }

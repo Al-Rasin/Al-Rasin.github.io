@@ -5,14 +5,14 @@
   <base href="$FLUTTER_BASE_HREF">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Al Rasin — Mobile App Developer</title>
+  <title>Al Rasin, mobile app developer</title>
   <meta name="description" content="Al Rasin is a mobile app developer in Dhaka, Bangladesh, building Android and iOS apps with Flutter, Kotlin and Firebase.">
-  <meta name="theme-color" content="#08090B">
+  <meta name="theme-color" content="#F6F5F1">
 
   <!-- Social share previews -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Al Rasin — Mobile App Developer">
-  <meta property="og:description" content="Cross-platform mobile apps with Flutter, Dart and Firebase.">
+  <meta property="og:title" content="Al Rasin, mobile app developer">
+  <meta property="og:description" content="Mobile app developer in Dhaka. Flutter, Kotlin and Firebase, with apps on the Play Store and App Store.">
   <meta property="og:url" content="https://al-rasin.github.io/">
   <meta property="og:image" content="https://al-rasin.github.io/assets/assets/images/avatar.jpg">
   <meta name="twitter:card" content="summary">
@@ -22,47 +22,41 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Al Rasin">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=2">
   <link rel="icon" type="image/png" href="favicon.png?v=2">
   <link rel="manifest" href="manifest.json">
 
   <style>
-    /* Instant first paint: plain HTML shows while Flutter downloads. */
-    html, body { margin: 0; background: #08090B; }
+    /* Plain HTML shows while Flutter downloads. */
+    html, body { margin: 0; background: #F6F5F1; }
     #loader {
-      position: fixed; inset: 0; display: flex; flex-direction: column;
-      justify-content: center; padding: 0 8vw; color: #EDEDEF;
-      font-weight: 600; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      transition: opacity .3s ease;
+      position: fixed; inset: 0; display: flex; justify-content: center;
+      padding: 96px 24px 0; color: #21201C;
+      font-family: Georgia, 'Times New Roman', serif; transition: opacity .25s ease;
     }
-    #loader p { margin: 0 0 18px; font-size: 14px; color: #7C83FF; }
-    #loader h1 { margin: 0; font-size: clamp(44px, 8vw, 80px); line-height: 1.05; letter-spacing: -3px; }
-    #loader h1 span { color: #8A8F98; }
-    #loader .bar { margin-top: 40px; width: 160px; height: 2px; background: #1E2025; overflow: hidden; }
-    #loader .bar::after {
-      content: ''; display: block; width: 40%; height: 100%; background: #7C83FF;
-      animation: slide 1s ease-in-out infinite;
-    }
-    @keyframes slide { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+    #loader > div { width: 100%; max-width: 640px; }
+    #loader h1 { margin: 88px 0 4px; font-size: 30px; font-weight: 500; color: #111110; }
+    #loader p { margin: 0; font-size: 18px; color: #6F6D66; }
+    #loader a { color: #9A3B26; }
     #loader.done { opacity: 0; pointer-events: none; }
+    @media (max-width: 699px) { #loader { padding-top: 56px; padding-left: 20px; padding-right: 20px; } }
   </style>
 </head>
 <body>
   <!-- Real text in HTML so search engines and slow connections still see content. -->
-  <main id="loader">
-    <p>Al Rasin · Mobile App Developer</p>
-    <h1>Crafting smooth<br><span>Flutter apps.</span></h1>
-    <div class="bar"></div>
+  <main id="loader"><div>
+    <h1>Al Rasin</h1>
+    <p>Mobile app developer in Dhaka</p>
     <noscript>
-      <p style="margin-top:32px;color:#8A8F98">
+      <p style="margin-top:28px">
         This site needs JavaScript. Find my work at
-        <a href="https://github.com/Al-Rasin" style="color:#7C83FF">github.com/Al-Rasin</a>
-        or email <a href="mailto:alrasin500@gmail.com" style="color:#7C83FF">alrasin500@gmail.com</a>.
+        <a href="https://github.com/Al-Rasin">github.com/Al-Rasin</a>
+        or email <a href="mailto:alrasin500@gmail.com">alrasin500@gmail.com</a>.
       </p>
     </noscript>
-  </main>
+  </div></main>
 
   <script>
     window.addEventListener('flutter-first-frame', function () {

@@ -1,10 +1,10 @@
 {
-    "name": "Al Rasin \u2014 Mobile App Developer",
+    "name": "Al Rasin, mobile app developer",
     "short_name": "Al Rasin",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#08090B",
-    "theme_color": "#08090B",
+    "background_color": "#F6F5F1",
+    "theme_color": "#F6F5F1",
     "description": "Portfolio of Al Rasin, mobile app developer.",
     "prefer_related_applications": false,
     "icons": [

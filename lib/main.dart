@@ -4,10 +4,8 @@ import 'data/portfolio_data.dart';
 import 'sections/blog_section.dart';
 import 'sections/contact_section.dart';
 import 'sections/experience_section.dart';
-import 'sections/hero_section.dart';
-import 'sections/live_apps_section.dart';
+import 'sections/intro_section.dart';
 import 'sections/projects_section.dart';
-import 'sections/skills_section.dart';
 import 'theme/app_theme.dart';
 import 'widgets/common.dart';
 
@@ -19,163 +17,41 @@ class PortfolioApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '${PortfolioData.name} — ${PortfolioData.role}',
+      title: '${PortfolioData.name}, mobile app developer',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.dark,
+      theme: AppTheme.light,
       home: const HomePage(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final _workKey = GlobalKey();
-  final _experienceKey = GlobalKey();
-  final _skillsKey = GlobalKey();
-  final _blogKey = GlobalKey();
-  final _contactKey = GlobalKey();
-
-  void _scrollTo(GlobalKey key) {
-    final ctx = key.currentContext;
-    if (ctx == null) return;
-    Scrollable.ensureVisible(
-      ctx,
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.easeInOutCubic,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SelectionArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _NavBar(
-                onWork: () => _scrollTo(_workKey),
-                onExperience: () => _scrollTo(_experienceKey),
-                onSkills: () => _scrollTo(_skillsKey),
-                onBlog: () => _scrollTo(_blogKey),
-                onContact: () => _scrollTo(_contactKey),
+          child: ContentWidth(
+            child: Padding(
+              padding: EdgeInsets.only(top: isNarrow(context) ? 56 : 96),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const IntroSection(),
+                  const ExperienceSection(),
+                  const ProjectsSection(),
+                  if (PortfolioData.blogPosts.isNotEmpty) const BlogSection(),
+                  const ToolsSection(),
+                  const ContactSection(),
+                  const Footer(),
+                ],
               ),
-              HeroSection(
-                onSeeWork: () => _scrollTo(_workKey),
-                onContact: () => _scrollTo(_contactKey),
-              ),
-              LiveAppsSection(key: _workKey),
-              ExperienceSection(key: _experienceKey),
-              const ProjectsSection(),
-              if (PortfolioData.blogPosts.isNotEmpty)
-                BlogSection(key: _blogKey),
-              SkillsSection(key: _skillsKey),
-              ContactSection(key: _contactKey),
-              const Footer(),
-            ],
+            ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class _NavBar extends StatelessWidget {
-  const _NavBar({
-    required this.onWork,
-    required this.onExperience,
-    required this.onSkills,
-    required this.onBlog,
-    required this.onContact,
-  });
-
-  final VoidCallback onWork;
-  final VoidCallback onExperience;
-  final VoidCallback onSkills;
-  final VoidCallback onBlog;
-  final VoidCallback onContact;
-
-  @override
-  Widget build(BuildContext context) {
-    final narrow = isNarrow(context);
-
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: AppColors.border)),
-      ),
-      child: ContentWidth(
-        child: SizedBox(
-          height: 68,
-          child: Row(
-            children: [
-              Container(
-                width: 34,
-                height: 34,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.borderHover),
-                  image: const DecorationImage(
-                    image: AssetImage(PortfolioData.photo),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: MediaQuery.sizeOf(context).width < 360
-                    ? const SizedBox.shrink()
-                    : const Text(
-                        PortfolioData.name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.text,
-                        ),
-                      ),
-              ),
-              _NavLink('Work', onWork, compact: narrow),
-              if (!narrow) _NavLink('Experience', onExperience),
-              if (PortfolioData.blogPosts.isNotEmpty)
-                _NavLink('Blog', onBlog, compact: narrow),
-              if (!narrow) _NavLink('Stack', onSkills),
-              const SizedBox(width: 8),
-              AppButton(label: 'Contact', small: true, onPressed: onContact),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _NavLink extends StatelessWidget {
-  const _NavLink(this.label, this.onTap, {this.compact = false});
-
-  final String label;
-  final VoidCallback onTap;
-  final bool compact;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onTap,
-      style: TextButton.styleFrom(
-        foregroundColor: AppColors.muted,
-        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-        padding: EdgeInsets.symmetric(
-          horizontal: compact ? 8 : 14,
-          vertical: 12,
-        ),
-      ),
-      child: Text(label),
     );
   }
 }
