@@ -126,18 +126,25 @@ class _NavBar extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              const Text(
-                PortfolioData.name,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.text,
-                ),
+              Expanded(
+                child: MediaQuery.sizeOf(context).width < 360
+                    ? const SizedBox.shrink()
+                    : const Text(
+                        PortfolioData.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.text,
+                        ),
+                      ),
               ),
-              const Spacer(),
-              _NavLink('Work', onWork),
+              _NavLink('Work', onWork, compact: narrow),
               if (!narrow) _NavLink('Experience', onExperience),
-              if (PortfolioData.blogPosts.isNotEmpty) _NavLink('Blog', onBlog),
+              if (PortfolioData.blogPosts.isNotEmpty)
+                _NavLink('Blog', onBlog, compact: narrow),
               if (!narrow) _NavLink('Stack', onSkills),
               const SizedBox(width: 8),
               AppButton(label: 'Contact', small: true, onPressed: onContact),
@@ -150,10 +157,11 @@ class _NavBar extends StatelessWidget {
 }
 
 class _NavLink extends StatelessWidget {
-  const _NavLink(this.label, this.onTap);
+  const _NavLink(this.label, this.onTap, {this.compact = false});
 
   final String label;
   final VoidCallback onTap;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +170,10 @@ class _NavLink extends StatelessWidget {
       style: TextButton.styleFrom(
         foregroundColor: AppColors.muted,
         textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        padding: EdgeInsets.symmetric(
+          horizontal: compact ? 8 : 14,
+          vertical: 12,
+        ),
       ),
       child: Text(label),
     );
