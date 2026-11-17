@@ -42,53 +42,55 @@ class _PhoneFrameState extends State<PhoneFrame> {
     final bezel = widget.width * 0.035;
     final inner = widget.width - bezel * 2;
     final radius = widget.width * 0.14;
-    return MouseRegion(
-      cursor: widget.onTap == null
-          ? MouseCursor.defer
-          : SystemMouseCursors.zoomIn,
-      onEnter: (_) => setState(() => _hover = true),
-      onExit: (_) => setState(() => _hover = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: AnimatedSlide(
-          duration: const Duration(milliseconds: 180),
-          curve: Curves.easeOut,
-          offset: Offset(0, _hover && widget.onTap != null ? -0.015 : 0),
-          child: Container(
-            width: widget.width,
-            padding: EdgeInsets.all(bezel),
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(radius),
-              border: Border.all(color: const Color(0xFF34332E), width: 1.2),
-            ),
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(radius - bezel),
-                  child: SizedBox(
-                    width: inner,
-                    height: inner / widget.aspect,
-                    child: Image.asset(
-                      widget.image,
-                      fit: BoxFit.cover,
-                      cacheWidth: (inner * 2).round(),
+    return RepaintBoundary(
+      child: MouseRegion(
+        cursor: widget.onTap == null
+            ? MouseCursor.defer
+            : SystemMouseCursors.zoomIn,
+        onEnter: (_) => setState(() => _hover = true),
+        onExit: (_) => setState(() => _hover = false),
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: AnimatedSlide(
+            duration: const Duration(milliseconds: 180),
+            curve: Curves.easeOut,
+            offset: Offset(0, _hover && widget.onTap != null ? -0.015 : 0),
+            child: Container(
+              width: widget.width,
+              padding: EdgeInsets.all(bezel),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(radius),
+                border: Border.all(color: const Color(0xFF34332E), width: 1.2),
+              ),
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(radius - bezel),
+                    child: SizedBox(
+                      width: inner,
+                      height: inner / widget.aspect,
+                      child: Image.asset(
+                        widget.image,
+                        fit: BoxFit.cover,
+                        cacheWidth: (inner * 2).round(),
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: inner * 0.03),
-                  child: Container(
-                    width: inner * 0.26,
-                    height: inner * 0.065,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(inner),
+                  Padding(
+                    padding: EdgeInsets.only(top: inner * 0.03),
+                    child: Container(
+                      width: inner * 0.26,
+                      height: inner * 0.065,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(inner),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -229,7 +231,7 @@ class _ViewerState extends State<_Viewer> {
                         Opacity(
                           opacity: _index > 0 ? 1 : 0.3,
                           child: TextLink(
-                            '← Previous',
+                            'Previous',
                             style: AppText.small,
                             onTap: () => _go(-1),
                           ),
@@ -238,7 +240,7 @@ class _ViewerState extends State<_Viewer> {
                         Opacity(
                           opacity: _index < count - 1 ? 1 : 0.3,
                           child: TextLink(
-                            'Next →',
+                            'Next',
                             style: AppText.small,
                             onTap: () => _go(1),
                           ),
