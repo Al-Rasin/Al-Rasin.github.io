@@ -21,15 +21,19 @@ flutter:
 
   assets:
     - assets/images/avatar.jpg
+    - assets/images/apps/
     - assets/images/projects/
 
-  # Latin-only subsets (~180 KB total) keep the download small.
   fonts:
-    - family: Geist
+    - family: Newsreader
       fonts:
-        - asset: assets/fonts/Geist-400.otf
+        - asset: assets/fonts/Newsreader-400.ttf
           weight: 400
-        - asset: assets/fonts/Geist-500.otf
+        - asset: assets/fonts/Newsreader-500.ttf
           weight: 500
-        - asset: assets/fonts/Geist-600.otf
+        - asset: assets/fonts/Newsreader-600.ttf
           weight: 600
+    - family: PlexMono
+      fonts:
+        - asset: assets/fonts/PlexMono-400.ttf
+          weight: 400

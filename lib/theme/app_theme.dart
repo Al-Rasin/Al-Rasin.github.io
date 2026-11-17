@@ -1,65 +1,84 @@
 import 'package:flutter/material.dart';
 
+/// Warm paper background, near-black ink and a single rust accent that is
+/// only ever used for links.
 class AppColors {
-  static const bg = Color(0xFF08090B);
-  static const surface = Color(0xFF0F1013);
-  static const border = Color(0xFF1E2025);
-  static const borderHover = Color(0xFF2E3138);
-  static const text = Color(0xFFEDEDEF);
-  static const muted = Color(0xFF8A8F98);
-  static const subtle = Color(0xFF5B606A);
+  static const bg = Color(0xFFF6F5F1);
+  static const text = Color(0xFF21201C);
+  static const heading = Color(0xFF111110);
+  static const muted = Color(0xFF6F6D66);
+  static const line = Color(0xFFE3E1DA);
+  static const accent = Color(0xFF9A3B26);
+}
 
-  /// The single accent color, used sparingly for highlights and glow.
-  static const accent = Color(0xFF7C83FF);
+class AppText {
+  static const serif = 'Newsreader';
+  static const mono = 'PlexMono';
 
-  static const headlineGradient = LinearGradient(
-    colors: [Color(0xFFFFFFFF), Color(0xFF9EA3AD)],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
+  static const body = TextStyle(
+    fontFamily: serif,
+    fontSize: 18,
+    height: 1.6,
+    color: AppColors.text,
+  );
+
+  static const name = TextStyle(
+    fontFamily: serif,
+    fontSize: 30,
+    height: 1.2,
+    fontWeight: FontWeight.w500,
+    color: AppColors.heading,
+  );
+
+  static const sectionTitle = TextStyle(
+    fontFamily: serif,
+    fontSize: 15,
+    height: 1.4,
+    fontWeight: FontWeight.w600,
+    color: AppColors.heading,
+  );
+
+  static const itemTitle = TextStyle(
+    fontFamily: serif,
+    fontSize: 20,
+    height: 1.35,
+    fontWeight: FontWeight.w600,
+    color: AppColors.heading,
+  );
+
+  static final muted = body.copyWith(color: AppColors.muted);
+
+  static const small = TextStyle(
+    fontFamily: serif,
+    fontSize: 16,
+    height: 1.5,
+    color: AppColors.muted,
+  );
+
+  static const code = TextStyle(
+    fontFamily: mono,
+    fontSize: 13,
+    height: 1.6,
+    color: AppColors.muted,
   );
 }
 
 class AppTheme {
-  static const font = 'Geist';
-
-  static ThemeData get dark => ThemeData(
-    brightness: Brightness.dark,
-    fontFamily: font,
+  static ThemeData get light => ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.light,
+    fontFamily: AppText.serif,
     scaffoldBackgroundColor: AppColors.bg,
-    colorScheme: const ColorScheme.dark(
+    colorScheme: const ColorScheme.light(
       primary: AppColors.accent,
       surface: AppColors.bg,
+      onSurface: AppColors.text,
     ),
     textSelectionTheme: TextSelectionThemeData(
-      selectionColor: AppColors.accent.withValues(alpha: .35),
+      selectionColor: AppColors.accent.withValues(alpha: 0.18),
+      cursorColor: AppColors.accent,
     ),
-    textTheme: const TextTheme(
-      displayLarge: TextStyle(
-        fontSize: 72,
-        fontWeight: FontWeight.w600,
-        height: 1.05,
-        letterSpacing: -3,
-        color: AppColors.text,
-      ),
-      headlineLarge: TextStyle(
-        fontSize: 44,
-        fontWeight: FontWeight.w600,
-        height: 1.1,
-        letterSpacing: -1.6,
-        color: AppColors.text,
-      ),
-      titleLarge: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        letterSpacing: -.3,
-        color: AppColors.text,
-      ),
-      bodyLarge: TextStyle(fontSize: 18, height: 1.6, color: AppColors.muted),
-      bodyMedium: TextStyle(
-        fontSize: 14.5,
-        height: 1.6,
-        color: AppColors.muted,
-      ),
-    ),
+    splashFactory: NoSplash.splashFactory,
+    highlightColor: Colors.transparent,
   );
 }

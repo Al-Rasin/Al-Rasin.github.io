@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../data/portfolio_data.dart';
 import '../theme/app_theme.dart';
 
-const double kMaxContentWidth = 1120;
+/// One readable column; about 70 characters of body text per line.
+const double kMaxContentWidth = 640;
 
 /// Web links open in a new tab; mailto/tel stay in place so the mail or
 /// phone app opens without leaving a blank tab behind.
 Future<void> openUrl(String url) => launchUrl(
   Uri.parse(url),
-  webOnlyWindowName: url.startsWith('http') ? '_blank' : '_self',
+  webOnlyWindowName: url.startsWith('mailto') ? '_self' : '_blank',
 );
 
-bool isNarrow(BuildContext context) => MediaQuery.sizeOf(context).width < 800;
+bool isNarrow(BuildContext context) => MediaQuery.sizeOf(context).width < 700;
 
-/// Centers its child and caps the width so lines stay readable on wide screens.
 class ContentWidth extends StatelessWidget {
   const ContentWidth({super.key, required this.child});
 
@@ -25,11 +24,11 @@ class ContentWidth extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: kMaxContentWidth),
+        constraints: BoxConstraints(
+          maxWidth: kMaxContentWidth + (isNarrow(context) ? 40 : 48),
+        ),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: isNarrow(context) ? 20 : 40,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: isNarrow(context) ? 20 : 24),
           child: child,
         ),
       ),
@@ -37,187 +36,51 @@ class ContentWidth extends StatelessWidget {
   }
 }
 
-class GradientText extends StatelessWidget {
-  const GradientText(
-    this.text, {
-    super.key,
-    required this.style,
-    this.gradient = AppColors.headlineGradient,
-    this.textAlign,
-  });
-
-  final String text;
-  final TextStyle? style;
-  final Gradient gradient;
-  final TextAlign? textAlign;
-
-  @override
-  Widget build(BuildContext context) {
-    return ShaderMask(
-      blendMode: BlendMode.srcIn,
-      shaderCallback: (bounds) => gradient.createShader(bounds),
-      child: Text(text, style: style, textAlign: textAlign),
-    );
-  }
-}
-
-/// Small bordered pill, e.g. the badge above the headline.
-class Pill extends StatelessWidget {
-  const Pill({super.key, required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: DefaultTextStyle.merge(
-        style: const TextStyle(fontSize: 13, color: AppColors.muted),
-        child: child,
-      ),
-    );
-  }
-}
-
-class SectionHeading extends StatelessWidget {
-  const SectionHeading({
-    super.key,
-    required this.eyebrow,
-    required this.title,
-    this.subtitle,
-    this.center = false,
-  });
-
-  final String eyebrow;
-  final String title;
-  final String? subtitle;
-  final bool center;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final align = center ? TextAlign.center : TextAlign.start;
-    return Column(
-      crossAxisAlignment: center
-          ? CrossAxisAlignment.center
-          : CrossAxisAlignment.start,
-      children: [
-        Text(
-          eyebrow,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: AppColors.accent,
-          ),
-        ),
-        const SizedBox(height: 14),
-        GradientText(
-          title,
-          textAlign: align,
-          style: textTheme.headlineLarge?.copyWith(
-            fontSize: isNarrow(context) ? 32 : 44,
-          ),
-        ),
-        if (subtitle != null) ...[
-          const SizedBox(height: 14),
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 520),
-            child: Text(
-              subtitle!,
-              textAlign: align,
-              style: textTheme.bodyLarge,
-            ),
-          ),
-        ],
-      ],
-    );
-  }
-}
-
-/// Primary (white) or secondary (outlined) button.
-class AppButton extends StatefulWidget {
-  const AppButton({
-    super.key,
-    required this.label,
-    required this.onPressed,
-    this.icon,
-    this.primary = true,
-    this.small = false,
-  });
+/// Plain text link: thin rust underline that darkens on hover.
+class TextLink extends StatefulWidget {
+  const TextLink(this.label, {super.key, this.url, this.onTap, this.style});
 
   final String label;
-  final VoidCallback onPressed;
-  final IconData? icon;
-  final bool primary;
-  final bool small;
+  final String? url;
+  final VoidCallback? onTap;
+  final TextStyle? style;
 
   @override
-  State<AppButton> createState() => _AppButtonState();
+  State<TextLink> createState() => _TextLinkState();
 }
 
-class _AppButtonState extends State<AppButton> {
-  bool _hovered = false;
+class _TextLinkState extends State<TextLink> {
+  bool _hover = false;
 
   @override
   Widget build(BuildContext context) {
-    final primary = widget.primary;
-    final fg = primary ? AppColors.bg : AppColors.text;
-    final bg = primary
-        ? (_hovered ? const Color(0xFFD9DADD) : AppColors.text)
-        : (_hovered ? AppColors.surface : Colors.transparent);
-
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hovered = true),
-      onExit: (_) => setState(() => _hovered = false),
-      child: GestureDetector(
-        onTap: widget.onPressed,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          padding: EdgeInsets.symmetric(
-            horizontal: widget.small ? 16 : 22,
-            vertical: widget.small ? 9 : 14,
-          ),
-          decoration: BoxDecoration(
-            color: bg,
-            borderRadius: BorderRadius.circular(999),
-            border: Border.all(
-              color: primary
-                  ? Colors.transparent
-                  : (_hovered ? AppColors.borderHover : AppColors.border),
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    widget.label,
-                    maxLines: 1,
-                    style: TextStyle(
-                      fontSize: widget.small ? 14 : 15,
-                      fontWeight: FontWeight.w500,
-                      color: fg,
-                    ),
-                  ),
+    final style = widget.style ?? AppText.body;
+    return Semantics(
+      link: true,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _hover = true),
+        onExit: (_) => setState(() => _hover = false),
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: widget.onTap ?? () => openUrl(widget.url!),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 120),
+            padding: const EdgeInsets.only(bottom: 1),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: AppColors.accent.withValues(alpha: _hover ? 1 : 0.4),
                 ),
               ),
-              if (widget.icon != null) ...[
-                const SizedBox(width: 8),
-                AnimatedSlide(
-                  offset: Offset(_hovered ? .2 : 0, 0),
-                  duration: const Duration(milliseconds: 150),
-                  child: Icon(widget.icon, size: 16, color: fg),
-                ),
-              ],
-            ],
+            ),
+            child: Text(
+              widget.label,
+              style: style.copyWith(
+                color: _hover ? AppColors.accent : style.color,
+                height: 1.25,
+              ),
+            ),
           ),
         ),
       ),
@@ -225,84 +88,39 @@ class _AppButtonState extends State<AppButton> {
   }
 }
 
-/// Fades and slides its child in once, after [delay].
-class Reveal extends StatefulWidget {
-  const Reveal({super.key, required this.child, this.delay = Duration.zero});
+/// A row of text links separated by spacing, wrapping on small screens.
+class LinkRow extends StatelessWidget {
+  const LinkRow(this.links, {super.key});
 
+  final List<Widget> links;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(spacing: 20, runSpacing: 10, children: links);
+  }
+}
+
+/// Section: hairline rule, a plain heading, then content.
+class Section extends StatelessWidget {
+  const Section({super.key, required this.title, required this.child});
+
+  final String title;
   final Widget child;
-  final Duration delay;
-
-  @override
-  State<Reveal> createState() => _RevealState();
-}
-
-class _RevealState extends State<Reveal> with SingleTickerProviderStateMixin {
-  late final _controller = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 700),
-  );
-  late final _curve = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.easeOutCubic,
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(widget.delay, () {
-      if (mounted) _controller.forward();
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _curve,
-      child: SlideTransition(
-        position: Tween(
-          begin: const Offset(0, .08),
-          end: Offset.zero,
-        ).animate(_curve),
-        child: widget.child,
+    return Padding(
+      padding: EdgeInsets.only(top: isNarrow(context) ? 56 : 72),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(height: 1, color: AppColors.line),
+          const SizedBox(height: 14),
+          Text(title, style: AppText.sectionTitle),
+          const SizedBox(height: 28),
+          child,
+        ],
       ),
-    );
-  }
-}
-
-/// LinkedIn, Facebook and GitHub buttons.
-class SocialLinks extends StatelessWidget {
-  const SocialLinks({super.key, this.alignment = WrapAlignment.start});
-
-  final WrapAlignment alignment;
-
-  static const _links = [
-    ('LinkedIn', PortfolioData.linkedin),
-    ('Facebook', PortfolioData.facebook),
-    ('GitHub', PortfolioData.github),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      alignment: alignment,
-      spacing: 10,
-      runSpacing: 10,
-      children: [
-        for (final (label, url) in _links)
-          AppButton(
-            label: label,
-            icon: Icons.north_east_rounded,
-            primary: false,
-            small: true,
-            onPressed: () => openUrl(url),
-          ),
-      ],
     );
   }
 }
