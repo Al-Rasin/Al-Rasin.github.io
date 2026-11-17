@@ -7,6 +7,7 @@ class Project {
     required this.tags,
     required this.url,
     required this.icon,
+    this.screenshots = const [],
   });
 
   final String title;
@@ -14,6 +15,9 @@ class Project {
   final List<String> tags;
   final String url;
   final IconData icon;
+
+  /// Asset paths of phone screenshots, shown as thumbnails on the card.
+  final List<String> screenshots;
 }
 
 class LiveApp {
@@ -56,9 +60,25 @@ class BlogPost {
   final String? readTime;
 }
 
+class Experience {
+  const Experience({
+    required this.company,
+    required this.role,
+    required this.period,
+    this.location,
+    this.summary,
+  });
+
+  final String company;
+  final String role;
+  final String period;
+  final String? location;
+  final String? summary;
+}
+
 class PortfolioData {
   static const name = 'Al Rasin';
-  static const role = 'Flutter Developer';
+  static const role = 'Flutter & Android Developer';
   static const location = 'Dhaka, Bangladesh';
   static const email = 'alrasin500@gmail.com';
 
@@ -70,7 +90,7 @@ class PortfolioData {
   static const photo = 'assets/images/avatar.jpg';
 
   static const intro =
-      'Flutter developer in Dhaka. 2.5+ years building apps that are '
+      'Flutter & Android developer in Dhaka. 2.5+ years building apps '
       'live on the Play Store and App Store.';
 
   static const skills = [
@@ -82,6 +102,37 @@ class PortfolioData {
     'Hive',
     'Firebase',
     'Kotlin',
+    'Jetpack Compose',
+    'Cloud Functions',
+  ];
+
+  static const experience = [
+    Experience(
+      company: 'Pinova Technologies',
+      role: 'Mobile App Development Consultant',
+      period: 'Sep 2026 – Present',
+      location: 'Remote',
+      summary:
+          'Building a native Android parental-control app for an EU client: '
+          'Kotlin, Jetpack Compose, Firebase (Firestore, security rules, '
+          'Cloud Functions). Screen-time limits, web filtering, device '
+          'pairing, parent alerts, GDPR-focused design.',
+    ),
+    Experience(
+      company: 'TubeOnAI',
+      role: 'Mobile Application Developer (Flutter)',
+      period: 'Apr 2024 – Present',
+      location: 'Remote',
+      summary:
+          'AI summarizer app with 150k+ users. Led the GetX to Riverpod '
+          'migration, cut start-up time by ~20% with Hive caching, and built '
+          'GoRouter deep links and a streaming audio player.',
+    ),
+    Experience(
+      company: 'HelloTask Platform Ltd.',
+      role: 'Flutter Developer (Intern)',
+      period: 'Sep 2023 – Mar 2024',
+    ),
   ];
 
   static const liveApps = [
@@ -115,6 +166,36 @@ class PortfolioData {
 
   static const projects = [
     Project(
+      title: 'Transcribr',
+      description:
+          'Offline speech-to-text app running whisper.cpp on the device. '
+          '99+ languages, with SRT, WebVTT, JSON and plain-text export.',
+      tags: ['Flutter', 'whisper.cpp', 'Offline'],
+      url: 'https://github.com/Al-Rasin/transcribr',
+      icon: Icons.graphic_eq_rounded,
+      screenshots: [
+        'assets/images/projects/transcribr-home.jpg',
+        'assets/images/projects/transcribr-start.jpg',
+        'assets/images/projects/transcribr-recording.jpg',
+        'assets/images/projects/transcribr-transcript.jpg',
+      ],
+    ),
+    Project(
+      title: 'TV UART Tool',
+      description:
+          'Android app to repair TVs and Android boxes over UART via USB '
+          'serial, Bluetooth, Wi-Fi/ESP32 and IR remote. Guided auto-fix '
+          'flows and a Bangla/English UI.',
+      tags: ['Flutter', 'Android', 'UART'],
+      url: 'https://github.com/Al-Rasin/tv_uart_tool',
+      icon: Icons.developer_board_rounded,
+      screenshots: [
+        'assets/images/projects/tvuart-home.jpg',
+        'assets/images/projects/tvuart-problem.jpg',
+        'assets/images/projects/tvuart-practice.jpg',
+      ],
+    ),
+    Project(
       title: 'Jimi',
       description:
           'Offline voice assistant for a rooted Android phone. Wake word, '
@@ -122,6 +203,11 @@ class PortfolioData {
       tags: ['Kotlin', 'Android', 'llama.cpp'],
       url: 'https://github.com/Al-Rasin/jimi',
       icon: Icons.record_voice_over_rounded,
+      screenshots: [
+        'assets/images/projects/jimi-chat.jpg',
+        'assets/images/projects/jimi-settings.jpg',
+        'assets/images/projects/jimi-wake-word.jpg',
+      ],
     ),
     Project(
       title: 'Focus Guard',

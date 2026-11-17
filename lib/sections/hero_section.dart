@@ -67,7 +67,7 @@ class _Intro extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Text('Open to new opportunities'),
+                const Text('Open to freelance projects'),
               ],
             ),
           ),
@@ -91,9 +91,9 @@ class _Intro extends StatelessWidget {
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 480),
             child: Text(
-              "I'm ${PortfolioData.name}, a Flutter developer from "
-              'Dhaka. I build fast, polished cross-platform apps with '
-              'Flutter, Dart and Firebase.',
+              "I'm ${PortfolioData.name}, a Flutter and Android developer "
+              'from Dhaka. I build fast, polished apps with Flutter and '
+              'native Android (Kotlin), backed by Firebase.',
               style: textTheme.bodyLarge,
             ),
           ),

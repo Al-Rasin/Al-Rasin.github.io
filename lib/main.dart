@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'data/portfolio_data.dart';
 import 'sections/blog_section.dart';
 import 'sections/contact_section.dart';
+import 'sections/experience_section.dart';
 import 'sections/hero_section.dart';
 import 'sections/live_apps_section.dart';
 import 'sections/projects_section.dart';
@@ -35,6 +36,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _workKey = GlobalKey();
+  final _experienceKey = GlobalKey();
   final _skillsKey = GlobalKey();
   final _blogKey = GlobalKey();
   final _contactKey = GlobalKey();
@@ -58,6 +60,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               _NavBar(
                 onWork: () => _scrollTo(_workKey),
+                onExperience: () => _scrollTo(_experienceKey),
                 onSkills: () => _scrollTo(_skillsKey),
                 onBlog: () => _scrollTo(_blogKey),
                 onContact: () => _scrollTo(_contactKey),
@@ -67,6 +70,7 @@ class _HomePageState extends State<HomePage> {
                 onContact: () => _scrollTo(_contactKey),
               ),
               LiveAppsSection(key: _workKey),
+              ExperienceSection(key: _experienceKey),
               const ProjectsSection(),
               if (PortfolioData.blogPosts.isNotEmpty)
                 BlogSection(key: _blogKey),
@@ -84,12 +88,14 @@ class _HomePageState extends State<HomePage> {
 class _NavBar extends StatelessWidget {
   const _NavBar({
     required this.onWork,
+    required this.onExperience,
     required this.onSkills,
     required this.onBlog,
     required this.onContact,
   });
 
   final VoidCallback onWork;
+  final VoidCallback onExperience;
   final VoidCallback onSkills;
   final VoidCallback onBlog;
   final VoidCallback onContact;
@@ -130,6 +136,7 @@ class _NavBar extends StatelessWidget {
               ),
               const Spacer(),
               _NavLink('Work', onWork),
+              if (!narrow) _NavLink('Experience', onExperience),
               if (PortfolioData.blogPosts.isNotEmpty) _NavLink('Blog', onBlog),
               if (!narrow) _NavLink('Stack', onSkills),
               const SizedBox(width: 8),
