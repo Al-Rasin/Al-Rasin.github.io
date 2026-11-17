@@ -1,11 +1,11 @@
 {
-    "name": "Al Rasin \u2014 Flutter Developer",
+    "name": "Al Rasin \u2014 Mobile App Developer",
     "short_name": "Al Rasin",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#08090B",
     "theme_color": "#08090B",
-    "description": "Portfolio of Al Rasin, Flutter developer.",
+    "description": "Portfolio of Al Rasin, mobile app developer.",
     "prefer_related_applications": false,
     "icons": [
         {
