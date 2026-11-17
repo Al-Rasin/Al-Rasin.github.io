@@ -233,6 +233,12 @@ class PortfolioData {
       tags: ['Flutter', 'Firebase', 'GetX'],
       url: 'https://github.com/Al-Rasin/seu-matrimony',
       icon: Icons.favorite_rounded,
+      screenshots: [
+        'assets/images/projects/seu-login.jpg',
+        'assets/images/projects/seu-home.jpg',
+        'assets/images/projects/seu-matches.jpg',
+        'assets/images/projects/seu-profile.jpg',
+      ],
     ),
     Project(
       title: 'Chat App',
@@ -241,6 +247,11 @@ class PortfolioData {
       tags: ['Flutter', 'Firebase'],
       url: 'https://github.com/Al-Rasin/chat-app-flutter',
       icon: Icons.forum_rounded,
+      screenshots: [
+        'assets/images/projects/chat-login.jpg',
+        'assets/images/projects/chat-signup.jpg',
+        'assets/images/projects/chat-messages.jpg',
+      ],
     ),
     Project(
       title: 'Mission Flutter',
@@ -250,6 +261,11 @@ class PortfolioData {
       tags: ['Flutter', 'Dart'],
       url: 'https://github.com/Al-Rasin/Mission-Flutter',
       icon: Icons.rocket_launch_rounded,
+      screenshots: [
+        'assets/images/projects/mission-roadmap.jpg',
+        'assets/images/projects/mission-task.jpg',
+        'assets/images/projects/mission-progress.jpg',
+      ],
     ),
     Project(
       title: 'Gambit',
@@ -259,6 +275,12 @@ class PortfolioData {
       tags: ['Flutter', 'Dart'],
       url: 'https://github.com/Al-Rasin/gambit',
       icon: Icons.sports_esports_rounded,
+      screenshots: [
+        'assets/images/projects/gambit-home.jpg',
+        'assets/images/projects/gambit-flappy.jpg',
+        'assets/images/projects/gambit-runner.jpg',
+        'assets/images/projects/gambit-sites.jpg',
+      ],
     ),
   ];
 }
