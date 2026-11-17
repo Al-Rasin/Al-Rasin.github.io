@@ -3,8 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../theme/app_theme.dart';
 
-/// One readable column; about 70 characters of body text per line.
-const double kMaxContentWidth = 640;
+const double kMaxPageWidth = 1180;
 
 /// Web links open in a new tab; mailto/tel stay in place so the mail or
 /// phone app opens without leaving a blank tab behind.
@@ -13,22 +12,24 @@ Future<void> openUrl(String url) => launchUrl(
   webOnlyWindowName: url.startsWith('mailto') ? '_self' : '_blank',
 );
 
-bool isNarrow(BuildContext context) => MediaQuery.sizeOf(context).width < 700;
+double screenWidth(BuildContext context) => MediaQuery.sizeOf(context).width;
+bool isNarrow(BuildContext context) => screenWidth(context) < 700;
+bool isWide(BuildContext context) => screenWidth(context) >= 960;
+double sidePad(BuildContext context) => isNarrow(context) ? 20 : 40;
 
-class ContentWidth extends StatelessWidget {
-  const ContentWidth({super.key, required this.child});
+class PageWidth extends StatelessWidget {
+  const PageWidth({super.key, required this.child});
 
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    final pad = sidePad(context);
     return Center(
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: kMaxContentWidth + (isNarrow(context) ? 40 : 48),
-        ),
+        constraints: BoxConstraints(maxWidth: kMaxPageWidth + pad * 2),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: isNarrow(context) ? 20 : 24),
+          padding: EdgeInsets.symmetric(horizontal: pad),
           child: child,
         ),
       ),
@@ -36,7 +37,7 @@ class ContentWidth extends StatelessWidget {
   }
 }
 
-/// Plain text link: thin rust underline that darkens on hover.
+/// Text link with an orange underline that fills in on hover.
 class TextLink extends StatefulWidget {
   const TextLink(this.label, {super.key, this.url, this.onTap, this.style});
 
@@ -66,11 +67,12 @@ class _TextLinkState extends State<TextLink> {
           onTap: widget.onTap ?? () => openUrl(widget.url!),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 120),
-            padding: const EdgeInsets.only(bottom: 1),
+            padding: const EdgeInsets.only(bottom: 2),
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: AppColors.accent.withValues(alpha: _hover ? 1 : 0.4),
+                  width: 1.5,
+                  color: AppColors.accent.withValues(alpha: _hover ? 1 : 0.45),
                 ),
               ),
             ),
@@ -78,7 +80,7 @@ class _TextLinkState extends State<TextLink> {
               widget.label,
               style: style.copyWith(
                 color: _hover ? AppColors.accent : style.color,
-                height: 1.25,
+                height: 1.2,
               ),
             ),
           ),
@@ -88,7 +90,6 @@ class _TextLinkState extends State<TextLink> {
   }
 }
 
-/// A row of text links separated by spacing, wrapping on small screens.
 class LinkRow extends StatelessWidget {
   const LinkRow(this.links, {super.key});
 
@@ -96,28 +97,41 @@ class LinkRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(spacing: 20, runSpacing: 10, children: links);
+    return Wrap(spacing: 24, runSpacing: 12, children: links);
   }
 }
 
-/// Section: hairline rule, a plain heading, then content.
+/// Section: a mono index on the rule, a big condensed title, then content.
 class Section extends StatelessWidget {
-  const Section({super.key, required this.title, required this.child});
+  const Section({
+    super.key,
+    required this.index,
+    required this.title,
+    required this.child,
+  });
 
+  final String index;
   final String title;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    final size = (screenWidth(context) * 0.1).clamp(48.0, 112.0);
     return Padding(
-      padding: EdgeInsets.only(top: isNarrow(context) ? 56 : 72),
+      padding: EdgeInsets.only(top: isNarrow(context) ? 88 : 140),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(height: 1, color: AppColors.line),
-          const SizedBox(height: 14),
-          Text(title, style: AppText.sectionTitle),
-          const SizedBox(height: 28),
+          Row(
+            children: [
+              Text(index, style: AppText.code),
+              const SizedBox(width: 14),
+              Expanded(child: Container(height: 1, color: AppColors.line)),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Text(title, style: AppText.headline(size)),
+          SizedBox(height: isNarrow(context) ? 40 : 64),
           child,
         ],
       ),

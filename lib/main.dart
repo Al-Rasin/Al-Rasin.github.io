@@ -19,36 +19,70 @@ class PortfolioApp extends StatelessWidget {
     return MaterialApp(
       title: '${PortfolioData.name}, mobile app developer',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
+      theme: AppTheme.dark,
       home: const HomePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _scroll = ScrollController();
+  final _keys = {
+    'work': GlobalKey(),
+    'projects': GlobalKey(),
+    'contact': GlobalKey(),
+  };
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  void _jump(String id) {
+    final ctx = _keys[id]?.currentContext;
+    if (ctx == null) return;
+    Scrollable.ensureVisible(
+      ctx,
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeInOutCubic,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SelectionArea(
         child: SingleChildScrollView(
-          child: ContentWidth(
-            child: Padding(
-              padding: EdgeInsets.only(top: isNarrow(context) ? 56 : 96),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const IntroSection(),
-                  const ExperienceSection(),
-                  const ProjectsSection(),
-                  if (PortfolioData.blogPosts.isNotEmpty) const BlogSection(),
-                  const ToolsSection(),
-                  const ContactSection(),
-                  const Footer(),
-                ],
+          controller: _scroll,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              PageWidth(child: TopBar(onJump: _jump)),
+              const PageWidth(child: HeroSection()),
+              SizedBox(height: isNarrow(context) ? 56 : 96),
+              PhoneStrip(scroll: _scroll),
+              PageWidth(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ExperienceSection(key: _keys['work']),
+                    ProjectsSection(key: _keys['projects']),
+                    if (PortfolioData.blogPosts.isNotEmpty) const BlogSection(),
+                    const ToolsSection(),
+                    ContactSection(key: _keys['contact']),
+                    const Footer(),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

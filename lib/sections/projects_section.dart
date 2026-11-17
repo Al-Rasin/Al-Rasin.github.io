@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/portfolio_data.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common.dart';
+import '../widgets/entry.dart';
 import '../widgets/screenshots.dart';
 
 class ProjectsSection extends StatelessWidget {
@@ -13,44 +14,29 @@ class ProjectsSection extends StatelessWidget {
     final main = PortfolioData.projects.where((p) => !p.learning);
     final learning = PortfolioData.projects.where((p) => p.learning);
     return Section(
+      index: '02',
       title: 'Side projects',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (final (i, p) in main.indexed) ...[
-            if (i > 0) const SizedBox(height: 48),
-            _Project(p),
-          ],
-          const SizedBox(height: 56),
-          Text('Earlier, while learning Flutter', style: AppText.sectionTitle),
-          const SizedBox(height: 16),
+          for (final (i, p) in main.indexed)
+            NumberedEntry(
+              number: i + 1,
+              title: p.title,
+              subtitle: p.subtitle,
+              body: p.description,
+              tech: p.tech,
+              images: p.screenshots,
+              links: [TextLink('Source on GitHub', url: p.url)],
+            ),
+          Text(
+            'Earlier, while learning Flutter',
+            style: AppText.lead.copyWith(fontSize: 22),
+          ),
+          const SizedBox(height: 20),
           for (final p in learning) _LearningLine(p),
         ],
       ),
-    );
-  }
-}
-
-class _Project extends StatelessWidget {
-  const _Project(this.p);
-
-  final Project p;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextLink(p.title, url: p.url, style: AppText.itemTitle),
-        const SizedBox(height: 10),
-        Text(p.description, style: AppText.body),
-        const SizedBox(height: 8),
-        Text(p.tech, style: AppText.code),
-        if (p.screenshots.isNotEmpty) ...[
-          const SizedBox(height: 16),
-          ScreenshotRow(images: p.screenshots),
-        ],
-      ],
     );
   }
 }
@@ -62,11 +48,14 @@ class _LearningLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      decoration: const BoxDecoration(
+        border: Border(top: BorderSide(color: AppColors.line)),
+      ),
       child: Wrap(
-        spacing: 14,
-        runSpacing: 4,
+        spacing: 16,
+        runSpacing: 6,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           TextLink(p.title, url: p.url),

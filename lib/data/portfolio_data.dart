@@ -4,11 +4,15 @@ class Project {
     required this.description,
     required this.tech,
     required this.url,
+    this.subtitle = '',
     this.screenshots = const [],
     this.learning = false,
   });
 
   final String title;
+
+  /// One short line under the title.
+  final String subtitle;
   final String description;
 
   /// Comma-separated, shown in mono under the description.
@@ -27,7 +31,6 @@ class LiveApp {
   const LiveApp({
     required this.title,
     required this.iconAsset,
-    this.note,
     this.appStoreUrl,
     this.playStoreUrl,
     this.screenshots = const [],
@@ -35,7 +38,6 @@ class LiveApp {
 
   final String title;
   final String iconAsset;
-  final String? note;
   final String? appStoreUrl;
   final String? playStoreUrl;
 
@@ -61,6 +63,7 @@ class Experience {
     required this.role,
     required this.summary,
     required this.tech,
+    this.stats = const [],
     this.app,
   });
 
@@ -68,6 +71,9 @@ class Experience {
   final String role;
   final String summary;
   final String tech;
+
+  /// Real, checkable numbers only.
+  final List<String> stats;
   final LiveApp? app;
 }
 
@@ -123,10 +129,10 @@ class PortfolioData {
           'start, and built the streaming audio player with background '
           'playback.',
       tech: 'Flutter, Riverpod, GoRouter, Hive, REST',
+      stats: ['150k+ users', '4.4★ App Store'],
       app: LiveApp(
         title: 'TubeOnAI',
         iconAsset: 'assets/images/apps/tubeonai-icon.jpg',
-        note: '4.4★ on the App Store',
         appStoreUrl:
             'https://apps.apple.com/us/app/tubeonai-summarize-anything/id6451212292',
         playStoreUrl:
@@ -167,6 +173,7 @@ class PortfolioData {
   static const projects = [
     Project(
       title: 'Transcribr',
+      subtitle: 'Speech to text that never leaves the phone',
       description:
           'Offline speech-to-text app running whisper.cpp on the device. '
           '99+ languages, with SRT, WebVTT, JSON and plain-text export.',
@@ -181,6 +188,7 @@ class PortfolioData {
     ),
     Project(
       title: 'TV UART Tool',
+      subtitle: 'Fixing TVs from a phone',
       description:
           'Android app to repair TVs and Android boxes over UART via USB '
           'serial, Bluetooth, Wi-Fi/ESP32 and IR remote. Guided auto-fix '
@@ -195,6 +203,7 @@ class PortfolioData {
     ),
     Project(
       title: 'Jimi',
+      subtitle: 'A voice assistant with no cloud',
       description:
           'Offline voice assistant for a rooted Android phone. Wake word, '
           'speech to text and small local models, all on the phone.',
@@ -208,6 +217,7 @@ class PortfolioData {
     ),
     Project(
       title: 'Focus Guard',
+      subtitle: 'Less scrolling, on Android and Mac',
       description:
           'Self-control tool for Android and macOS. Adds friction to Shorts '
           'and Reels and blocks adult content. Works on Android without root '
