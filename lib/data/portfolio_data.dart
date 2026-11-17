@@ -212,11 +212,18 @@ class PortfolioData {
     Project(
       title: 'Focus Guard',
       description:
-          'Self-control tool for rooted Android and macOS. Adds friction '
-          'to Shorts and Reels and blocks adult content.',
+          'Self-control tool for Android and macOS. Adds friction to Shorts '
+          'and Reels and blocks adult content. Works on Android without root '
+          'through an Accessibility service.',
       tags: ['Android', 'macOS'],
       url: 'https://github.com/Al-Rasin/focus-guard',
       icon: Icons.shield_rounded,
+      screenshots: [
+        'assets/images/projects/focusguard-welcome.jpg',
+        'assets/images/projects/focusguard-home.jpg',
+        'assets/images/projects/focusguard-apps.jpg',
+        'assets/images/projects/focusguard-settings.jpg',
+      ],
     ),
     Project(
       title: 'SEU Matrimony',
